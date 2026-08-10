@@ -27,7 +27,7 @@ Make sure you have the following installed and ready to be used:
 | ISP | Internet Service Provider; connects a client to the Internet |
 
 The figure below shows a typical network environment with various web application components:
-![Client-server diagram](../images/client_server.png)
+![Client-server diagram](./images/client_server.png)
 
 **Discussion prompt:** Ask students to name 3 web applications they used today. For each, ask: "Was that page the *same* every time you loaded it, or did it change based on who you are / what you searched?" — this sets up the static vs. dynamic distinction below.
 
