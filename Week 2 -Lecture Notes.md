@@ -46,8 +46,6 @@ Where does the `<script>` tag go?:
 
 Either approach works; we'll use "end of body" for now since it's simpler.
 
----
-
 ## Browser Console
 
 Before we write a single line of JS, let's meet the tool you'll use constantly for the rest of this course, the Developer Tools, built into every modern browser.
