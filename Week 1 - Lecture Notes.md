@@ -94,7 +94,7 @@ protocol      host      port    path             query        fragment
 
 ---
 
-## 6. Static vs. Dynamic Web Pages
+## Static vs. Dynamic Web Pages
 - **Static page:** the server does almost no work. It receives the `GET` request, looks up the matching HTML file on disk, and sends it back unchanged. The same request always produces the same response.
 - **Dynamic page:** the server runs a program (server-side processing) that builds the HTML fresh for that specific request before sending it back. A page like an amazon.com product listing is dynamic because the HTML is assembled per-request based on what's in the database at that moment.
 
@@ -137,7 +137,7 @@ Image below shows the processing of a dynamic page: <br> <br>
 | `<img>` | Displays an image |
 | `<form>` | Creates a form for collecting user input |
 | `<label>` | Provides a label for a form control |
-| `<input>` | Creates an input control such as text, email, checkbox, radio button, 
+| `<input>` | Creates an input control such as text, email, checkbox, radio button etc.
 | `<button>` | Creates a clickable button |
 
 Below is a simple HTML page:
@@ -460,7 +460,7 @@ body {
 }
 
 #login_button {
-	width: 100%
+	width: 100%;
 	padding: 0.6em;
 	background-color: #2575fc;
 	color: white;
