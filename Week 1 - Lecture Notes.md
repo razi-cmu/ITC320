@@ -29,33 +29,27 @@ Make sure you have the following installed and ready to be used:
 The figure below shows a typical network environment with various web application components:  <br> <br>
 <img src="./images/client_server.png" alt="Client-server diagram" width="500">
 
-**Discussion prompt:** Ask students to name 3 web applications they used today. For each, ask: "Was that page the *same* every time you loaded it, or did it change based on who you are / what you searched?" — this sets up the static vs. dynamic distinction below.
-
-#### Theory: The Client-Server Model
+## The Client-Server Model
 
 A **web application** is built on a request/response relationship between two programs:
 
-- The **client** (almost always a web browser) initiates communication. It never acts on its own — it only responds to what the user does (typing a URL, clicking a link, submitting a form).
-- The **web server** is a program that runs continuously, waiting for requests. It processes each request and sends back a response — it does not initiate contact with the client.
+- The **client** (almost always a web browser) initiates communication. It never acts on its own; it only responds to what the user does (typing a URL, clicking a link, submitting a form).
+- The **web server** is a program that runs continuously, waiting for requests. It processes each request and sends back a response; it does not initiate contact with the client.
 
-This is why the model is called **client-server**: responsibilities are split, and communication is always initiated by the client. Every interaction — loading a page, submitting a form, an app fetching new data — follows this same one request → one response pattern.
+This is why the model is called **client-server**: responsibilities are split, and communication is always initiated by the client. Every interaction like loading a page, submitting a form, an app fetching new data, follows this same one request → one response pattern.
 
 **The network types in context:** a request from your laptop to a college's registration system might travel client → LAN → ISP → Internet → the college's server. If that same request never left the campus network, it would be traveling over an **intranet** instead. Knowing the difference matters for questions about scope and access (an intranet is restricted to an organization; the Internet is public).
 
-> **Exam-relevant distinction:** *Client* and *server* are roles, not devices — the same physical machine could run server software and serve pages to itself. What makes something a "server" is that it's listening for and responding to requests.
-
 ---
 
-### 4. HTTP Requests & Responses — Hands-On (20 min)
+## HTTP Requests & Responses
 
-This is the first hands-on segment. Everyone opens Chrome.
+**HTTP** (Hypertext Transfer Protocol) is the set of rules that defines how a client and server format and exchange messages. It's a **protocol** meaning, an agreed-upon message format, not a program itself. Every HTTP exchange has exactly two parts:
 
-#### Theory: What HTTP Actually Is
+- **HTTP request**: sent from client to server. Contains a *method* (what the client wants to do), a *path* (what resource it wants), and *headers* (metadata about the request).
+- **HTTP response**: sent from server back to client. Contains a *status code* (did it work?), *headers* (metadata about the response), and usually a *body* (the actual HTML, JSON, image, etc.). Image below shows a typical HTTP request and response. <br> <br>
 
-**HTTP** (Hypertext Transfer Protocol) is the set of rules that defines how a client and server format and exchange messages. It's a **protocol** — an agreed-upon message format — not a program itself. Every HTTP exchange has exactly two parts:
-
-- **HTTP request** — sent from client to server. Contains a *method* (what the client wants to do), a *path* (what resource it wants), and *headers* (metadata about the request).
-- **HTTP response** — sent from server back to client. Contains a *status code* (did it work?), *headers* (metadata about the response), and usually a *body* (the actual HTML, JSON, image, etc.).
+<img src="./images/HTTP_Request.png" alt="Client-server diagram" width="500">
 
 **Common HTTP methods:**
 
@@ -66,9 +60,9 @@ This is the first hands-on segment. Everyone opens Chrome.
 | `PUT` | Replace a resource entirely |
 | `DELETE` | Remove a resource |
 
-We'll only see `GET` and `POST` for now — `PUT`/`DELETE` become relevant once we build applications that talk to web services later in the course.
+We'll only see `GET` and `POST` for now. `PUT`/`DELETE` become relevant once we build applications that talk to web services later in the course.
 
-**Status code categories** — the first digit tells you the category before you even read the rest:
+**Status code categories**: The first digit tells you the category before you even read the rest:
 
 | Range | Category | Example |
 | --- | --- | --- |
@@ -78,72 +72,33 @@ We'll only see `GET` and `POST` for now — `PUT`/`DELETE` become relevant once 
 | 4xx | Client error | 404 Not Found |
 | 5xx | Server error | 500 Internal Server Error |
 
-**Headers**, in short, are key/value metadata attached to a request or response — they describe the message without being part of its main content. `Content-Type`, for example, tells the client *how to interpret* the response body (as HTML, JSON, an image, etc.).
-
-**Rendering a page** is the browser's process of taking the HTML it received in the response body and turning it into what you see on screen — parsing the markup, building the page structure, applying CSS, and displaying the result.
-
-#### Step 1 — Open DevTools and watch a real request
-
-**Live demo, students follow along:**
-
-1. Open Chrome.
-2. Press `F12` (or `Ctrl+Shift+I` / `Cmd+Option+I` on Mac) to open DevTools.
-3. Click the **Network** tab.
-4. Check **Preserve log**.
-5. In the address bar, navigate to `https://example.com`.
-6. Click on the top request in the Network panel (the one for `example.com`).
-
-**Have students find and read aloud:**
-
-- **Request Method** — should say `GET`
-- **Status Code** — should say `200 OK`
-- **Request Headers** — look for `Host`, `User-Agent`, `Accept`
-- **Response Headers** — look for `Content-Type`, `Content-Length`
-
-#### Step 2 — Exercise: Classify the request/response
-
-Have students visit two more sites (e.g., their college's homepage and one of their own choosing) and fill in this table individually or in pairs:
-
-| Site | Status Code | Content-Type of response | Any request that returned something other than 200? |
-| --- | --- | --- | --- |
-| example.com | | | |
-| (your choice) | | | |
-| (your choice) | | | |
-
-**Debrief questions:**
-- Did anyone see a status code other than 200 (e.g., 301, 302, 404)? What might that mean?
-- What's the difference between what the *browser* sent and what it *received*?
-
-> **Key terms to lock in:** `HTTP request`, `HTTP response`, `status code`, `header`, `rendering a page`
-
----
-
-### 5. Anatomy of a URL (10 min)
+## Anatomy of a URL
 
 Write a URL on the board and label every part:
 
 ```
 https://www.example.com:443/products/shoes?color=red&size=10#reviews
-└─┬──┘   └───────┬───────┘└┬┘└─────┬──────┘└────────┬────────┘└──┬──┘
-protocol      host        port    path             query        fragment
+└─┬──┘   └──────┬─────┘ └┬┘└─────┬───────┘└────────┬────────┘└──┬──┘
+protocol      host      port    path             query        fragment
 ```
 
 | Part | Example | Notes |
 | --- | --- | --- |
 | Protocol | `https://` | If omitted, browser defaults to `http://` or `https://` |
 | Host | `www.example.com` | The domain name of the server |
-| Port | `:443` | Usually omitted — defaults to 80 (HTTP) or 443 (HTTPS) |
+| Port | `:443` | Usually omitted, defaults to 80 (HTTP) or 443 (HTTPS) |
 | Path | `/products/shoes` | If omitted, server returns its default document (`index.html`, `default.htm`, etc.) |
 | Query string | `?color=red&size=10` | Key/value pairs sent to the server |
-| Fragment | `#reviews` | Client-side only — never sent to the server |
+| Fragment | `#reviews` | Client-side only, never sent to the server |
 
-**Quick exercise:** Give students a URL like `https://api.github.com/search/repositories?q=javascript&sort=stars` and have them label each component individually, then check with a neighbor.
-
-> **Note on defaults:** A URL is really a shorthand — the browser fills in missing pieces using defaults. Omit the protocol and the browser assumes `http://` or `https://`; omit the path/filename and the server returns its configured default document. This matters because two URLs that "look different" (`example.com` vs. `example.com/index.html`) can point to the exact same resource.
 
 ---
 
-### 6. Static vs. Dynamic Web Pages (5 min, wrap-up)
+## 6. Static vs. Dynamic Web Pages
+- **Static page:** the server does almost no work. It receives the `GET` request, looks up the matching HTML file on disk, and sends it back unchanged. The same request always produces the same response.
+- **Dynamic page:** the server runs a program (server-side processing) that builds the HTML fresh for that specific request before sending it back. A page like an amazon.com product listing is dynamic because the HTML is assembled per-request based on what's in the database at that moment.
+
+Both static and dynamic pages ultimately send *HTML* back to the browser. The difference is entirely in *how the server produced that HTML*, not in what the browser does with it.
 
 | | Static page | Dynamic page |
 | --- | --- | --- |
@@ -151,140 +106,194 @@ protocol      host        port    path             query        fragment
 | Example | A plain HTML "About Us" page | A search results page, a shopping cart |
 | Server does | Just returns the file | Runs code, queries a database, then builds HTML |
 
-**Theory — how each is actually processed:**
+Image below shows the processing of a dynamic page: <br> <br>
 
-- **Static page:** the server does almost no work. It receives the `GET` request, looks up the matching HTML file on disk, and sends it back unchanged. The same request always produces the same response.
-- **Dynamic page:** the server runs a program (server-side processing) — often involving an **application server** and a **database server** — that builds the HTML fresh for that specific request before sending it back. This full cycle (request → server-side processing → response) is sometimes called a **round trip**. A page like an amazon.com product listing is dynamic because the HTML is assembled per-request based on what's in the database at that moment.
+<img src="./images/Dynamic_Pages.png" alt="Client-server diagram" width="500">
 
-Both static and dynamic pages ultimately send *HTML* back to the browser — the difference is entirely in *how the server produced that HTML*, not in what the browser does with it.
+## HTML & CSS
+### HTML
 
-**Bridge to Class 2:** "Today we saw *what* travels between browser and server. Next class, we start actually writing what the browser renders — HTML and CSS — since that's what a static page *is*."
-
----
-
-## Class 2 (80 min): HTML & CSS Refresher — Hands-On Build
-
-> This class assumes students already know HTML/CSS basics from the prerequisite web design course. The goal is **not** to reteach from zero — it's a fast, applied refresher that gets everyone writing code in the same style we'll build on all semester (the style used in the textbook), while filling gaps that matter for JavaScript work later (`id`, `class`, semantic elements, selectors).
-
-### Agenda
-
-| Time | Segment |
-| --- | --- |
-| 0:00 – 0:10 | Set up the project folder in VS Code |
-| 0:10 – 0:30 | Build the HTML skeleton (hands-on) |
-| 0:30 – 0:50 | Style it with CSS (hands-on) |
-| 0:50 – 1:05 | Selectors deep dive: type, id, class (hands-on) |
-| 1:05 – 1:20 | Semantic HTML5 + key attributes, wrap-up exercise |
-
----
-
-### 1. Project Setup (10 min)
-
-**Everyone does this together:**
-
-1. Open VS Code.
-2. `File → Open Folder` → create/select a folder named `week01-email-list`.
-3. Create two files at the root of that folder:
-   - `index.html`
-   - `styles.css`
-
-> **Tip for students:** Click the file once to *preview* it (tab name shows in italics); double-click to *open* it in Standard Mode so it stays open while you click around.
-
----
-
-### 2. Build the HTML Skeleton (20 min, live-typed together)
-
-#### Theory: What Every HTML Document Needs
-
-Every HTML page follows the same basic skeleton, and each piece has a specific job:
+**HTML (Hypertext Markup Language)** is a markup language, not a programming language which means it has no logic or computation. It describes the structure and meaning of content using nested elements. Every element that has both an opening and closing tag can contain other elements, forming a tree. This nested structure is exactly what the browser parses when it renders a page. Every HTML page follows the same basic skeleton, and each piece has a specific job:
 
 | Piece | Purpose |
 | --- | --- |
 | `<!DOCTYPE html>` | Tells the browser to render the page using modern HTML5 rules (not an older, quirks-mode standard) |
-| `<html>` | The root element — everything else lives inside it |
-| `<head>` | Metadata about the page — not displayed directly. Holds the `<title>`, character encoding, linked CSS, and (later) linked JavaScript |
+| `<html>` | The root element. Everything else lives inside it |
+| `<head>` | Metadata about the page. This is not displayed directly. Holds the `<title>`, character encoding, linked CSS, and other metadata |
 | `<meta charset="utf-8">` | Declares the character encoding so text (including special characters) displays correctly |
 | `<meta name="viewport" ...>` | Tells mobile browsers how to scale the page instead of rendering it as a shrunk desktop layout |
 | `<title>` | The text shown in the browser tab and used by search engines/bookmarks |
+| `<link>` | Connects the document to external resources, commonly CSS files and icons |
+| `<style>` | Contains CSS written directly inside the HTML document |
+| `<script>` | Adds or links JavaScript used to make the page interactive |
 | `<body>` | Everything the user actually sees and interacts with |
+| `<section>` | Groups related content into a logical section |
+| `<h1>` | Main heading of the page |
+| `<p>` | Defines a paragraph |
+| `<br>` | Inserts a line break |
+| `<hr>` | Represents a thematic break between sections of content |
+| `<a>` | Creates a hyperlink to another page, location, file, or resource |
+| `<div>` | Generic block-level container used to group content, often for styling or layout |
+| `<img>` | Displays an image |
+| `<form>` | Creates a form for collecting user input |
+| `<label>` | Provides a label for a form control |
+| `<input>` | Creates an input control such as text, email, checkbox, radio button, 
+| `<button>` | Creates a clickable button |
 
-**HTML itself (Hypertext Markup Language)** is a *markup* language, not a programming language — it has no logic or computation. It describes the **structure and meaning** of content using nested elements. Every element that has both an opening and closing tag can contain other elements, forming a tree — this nested structure is exactly what the browser parses when it "renders" a page (recall that term from Class 1).
-
-Type this out with the class, explaining each line as you go — don't paste it in one shot.
+Below is a simple HTML page:
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-    <title>Join Email List</title>
-    <!-- link and style elements go here -->
+    <title>Page Title</title>
 </head>
 <body>
-    <main>
-        <h1>Please join our email list</h1>
-        <form id="email_form" action="join.html" method="get">
-            <div>
-                <label for="email_1">Email Address:</label>
-                <input type="text" id="email_1" name="email_1">
-                <span id="email_1_error">*</span>
-            </div>
-            <div>
-                <label for="email_2">Re-enter Email Address:</label>
-                <input type="text" id="email_2" name="email_2">
-                <span id="email_2_error">*</span>
-            </div>
-            <div>
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name">
-                <span id="first_name_error">*</span>
-            </div>
-            <div>
-                <label>&nbsp;</label>
-                <input type="submit" id="join_list" value="Join List">
-                <input type="button" id="clear_form" value="Clear Form">
-            </div>
-        </form>
-    </main>
-    <!-- script elements go here -->
+    <h1>This is a Heading</h1>
+    <p>This is a paragraph.</p>
+
 </body>
 </html>
+
+```
+#### HTML Links
+We can put a reference to a page using below:
+
+```html
+<a href="https://www.cmich.edu">This is a link</a>
+```
+The link's destination is specified in the href attribute. Attributes are used to provide additional information about HTML elements.
+
+#### HTML Images
+HTML images are defined with the <img> tag. The source file (src), alternative text (alt), width, and height are provided as attributes:
+
+```html
+<img src="https://www.cmich.edu/images/default-source/presidents-division/university-communications/new-brand-images/actionc/actionc_thumb_244x244px3e6a6273-3595-46d7-b181-2c779d67f0bd.jpg?sfvrsn=e96af5dc_6" alt="CMU Logo" width="150" height="150">
+```
+#### HTML Horizontal Rules
+The `<hr>` tag defines a thematic break in an HTML page, and is most often displayed as a horizontal rule. The `<hr>` tag is an empty tag, which means that it has no end tag.
+
+```html
+<h1>This is heading 1</h1>
+<p>This is some text.</p>
+<hr>
+<h2>This is heading 2</h2>
+<p>This is some other text.</p>
+<hr>
 ```
 
-**Save the file, then run it:**
+#### HTML Line Breaks
+The HTML `<br>` element defines a line break. Use `<br>` if you want a line break (a new line) without starting a new paragraph:
 
-- Right-click `index.html` in the Explorer → **Open in Default Browser** (if the Open in Browser extension is installed), **or**
-- Right-click → **Reveal in File Explorer / Finder** → double-click the file.
+```html
+<p>This is<br>a paragraph<br>with line breaks.</p>
+```
 
-**Checkpoint:** The page should render as plain, unstyled text and form fields. Ask: "Why does this look so bare?" → leads into CSS.
+#### The `<pre>` Element
+
+```html
+<pre>
+  My Bonnie lies over the ocean.
+
+  My Bonnie lies over the sea.
+
+  My Bonnie lies over the ocean.
+
+  Oh, bring back my Bonnie to me.
+</pre>
+```
+
+#### The `<div>` Element
+The `<div>` element is by default a block element, meaning that it takes all available width, and comes with line breaks before and after.
+
+```html
+This is <div>a div element</div> of HTML
+```
+The `<div>` element is often used to group sections of a web page together.
+
+```html
+<div>
+		<h1>Central Michigan University</h1>
+		<p>Department of Computer Science</p>
+		<p>Web Development</p>
+</div>
+```
+
+#### The HTML Style Attribute
+Setting the style of an HTML element, can be done with the style attribute. The HTML style attribute has the following syntax:
+
+```html
+<tagname style="property:value;">
+```
+
+Below is an example of changing the font size of a paragraph element:
+```html
+<p style="font-size:20px">This is some text.</p>
+```
+
+Similarly, color can be used to change the color of the paragraph element:
+```html
+<p style="color:blue">This is some other text.</p>
+```
+
+Multiple styles can be applied to an HTML component:
+```html
+<p style="color:blue; text-align:center;" >This is some other text.</p>
+```
+It is highly recommended to put a `;` even when using a single style.
+
+The table below shows some of the widely used properties:
+
+| Piece | Purpose |
+| --- | --- |
+| `color` | Sets the text color |
+| `background` | Sets background color, image, or other background properties |
+| `font-family` | Sets the typeface |
+| `font-size` | Sets the size of text |
+| `font-weight` | Controls text thickness, such as `400` or `700` |
+| `text-align` | Aligns text horizontally |
+| `line-height` | Controls the spacing between lines of text |
+| `width` | Sets an element's width |
+| `height` | Sets an element's height |
+| `margin` | Controls space outside an element |
+| `padding` | Controls space inside an element |
+| `border` | Adds a border around an element |
+| `border-radius` | Rounds an element's corners |
+| `box-shadow` | Adds a shadow around an element |
+| `display` | Controls how an element participates in layout, such as `block`, `inline`, or `flex` |
+| `position` | Controls how an element is positioned, such as `relative`, `absolute`, or `fixed` |
+| `top / right / bottom / left` | Offsets positioned elements |
+| `justify-content` | Aligns flex/grid items along the main axis |
+| `grid-template-columns` | Defines the columns in a CSS grid |
+| `overflow` | Controls what happens when content doesn't fit |
+| `opacity` | Controls an element's transparency |
+
 
 ---
 
-### 3. Style It with CSS (20 min, live-typed together)
-
-#### Theory: What CSS Is and How Styles Get Applied
-
-**CSS (Cascading Style Sheets)** is a separate language from HTML with one job: describing how HTML elements should *look* (color, spacing, layout, fonts), keeping presentation separate from structure/content.
+### CSS 
+**CSS (Cascading Style Sheets)** is a separate language from HTML with one job: describing how HTML elements should look (color, spacing, layout, fonts), keeping presentation separate from structure/content.
 
 **Three ways to add CSS to a page** (from least to most reusable):
 
 | Method | How | When to use |
 | --- | --- | --- |
-| Inline | `style="color: blue;"` directly on an element | Rare — hard to maintain, avoid in real projects |
+| Inline | `style="color: blue;"` directly on an element | Easy but hard to maintain, avoid in real projects |
 | Embedded | A `<style>` block inside `<head>` | One-off styles specific to a single page |
-| External | A separate `.css` file linked with `<link rel="stylesheet" href="...">` | Standard approach — one stylesheet can style many pages |
+| External | A separate `.css` file linked with `<link rel="stylesheet" href="...">` | Standard approach for managing complex projects |
 
-We'll always use the **external** approach in this course, since it's what real projects use and what the textbook uses throughout.
 
 **Why "cascading"?** When more than one rule could apply to the same element, CSS uses a defined order to decide which wins:
 
 1. Rules from an external stylesheet are applied first.
 2. Embedded styles are applied next (and can override external ones).
-3. If there are multiple external stylesheets linked, they're applied in order — later ones can override earlier ones.
+3. If there are multiple external stylesheets linked, they're applied in order ( later ones can override earlier ones.)
 
-We'll revisit this "who wins" question again in the selectors section below, since selector type also affects it.
+A CSS rule consists of a selector and a declaration block: <br> <br>
+
+<img src="./images/img_selector.gif" width="500">
+
+The selector points to the HTML element you want to style. The declaration block contains one or more declarations separated by semicolons. Each declaration includes a CSS property name and a value, separated by a colon. Multiple CSS declarations are separated with semicolons, and declaration blocks are surrounded by curly braces.
 
 First, link the stylesheet inside `<head>`:
 
@@ -292,195 +301,185 @@ First, link the stylesheet inside `<head>`:
 <link rel="stylesheet" href="styles.css">
 ```
 
-Then build `styles.css` incrementally — type a rule, save, switch to browser, refresh, observe the change. Repeat.
+Then build `styles.css` incrementally: type a rule, save, switch to browser, refresh, observe the change. Repeat.
+
+Let's start simple by adding the following into `styles.css`. Make sure css and html files are in the same folder.
+
+```css
+p {
+	color: red;
+	font-size: 20px;
+}
+```
+
+Here is the full HTML that will be styled using the above stylesheet.
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>This is heading 1</h1>
+<p style="font-size:20px">This is some text.</p>
+<hr>
+<h2>This is heading 2</h2>
+<p style="color:blue; text-align:center;" >This is some other text.</p>
+<hr>
+<p>This is<br>a paragraph<br>with line breaks.</p>
+
+<pre>
+  My Bonnie lies over the ocean.
+
+  My Bonnie lies over the sea.
+
+  My Bonnie lies over the ocean.
+
+  Oh, bring back my Bonnie to me.
+</pre>
+
+</body>
+</html>
+```
+
+#### The CSS id Selector
+The id selector uses the id attribute of an HTML element to select a specific element. The id of an element is unique within a page, so the id selector is used to select one unique element!
+
+```css
+#para1 {
+  text-align: center;
+  color: green;
+}
+```
+Below is how it is applied to the component in the HTML file:
+
+```html
+<p id="para1">This is some text.</p>
+```
+
+#### The CSS class Selector
+The class selector selects HTML elements with a specific class attribute. To select elements with a specific class, write a period (.) character, followed by the class name. Below can be used to set a class for a `<pre>`:
+
+```css
+pre.center {
+	text-align: center;
+	color: orange;
+}
+```
+Below is the usage of this class in the HTML document:
+```html
+<pre class="center">
+  My Bonnie lies over the ocean.
+
+  My Bonnie lies over the sea.
+
+  My Bonnie lies over the ocean.
+
+  Oh, bring back my Bonnie to me.
+</pre>
+```
+
+### Form with Styles
+ Let's design a login form that uses the `<form>` component and styles to improve its look and feel.
+
+ ```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div id="login_card">
+		<header>
+			<h1>Login Page</h1>
+		</header>
+		
+		<form>
+			<div class="field">
+			<label for="username">Username or Email </label>
+			<input type="text">
+			</div>
+			
+			<div class="field">
+			<label for="password">Password</label>
+			<input type="password">
+			</div>
+			
+			<div class="field">
+			<input type="submit" value="Log In" id="login_button">
+			</div>
+		</form>
+	</div>
+	<footer>Copyright 2026. All rights reserved.</footer>
+</body>
+</html>
+ ```
+
+Here is the `styles.css`:
 
 ```css
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: white;
-    margin: 0 auto;
-    width: 670px;
-    border: 3px solid blue;
-    padding: 0 2em 1em;
+    background-color: #f0f2f5;
+    text-align: center;
+	margin: 0;
+    padding: 3em 1em;
 }
 
-h1 {
-    color: blue;
+#login_card {
+	background-color: white;
+	width: 320px;
+	margin: 0 auto;
+	padding: 2em;
+	border: 1px solid #ccc;
+	border-radius: 8px;
 }
 
-div {
-    margin-bottom: 1em;
+.field {
+	margin-bottom: 1em;
+	text-align: left;
 }
 
-label {
-    display: inline-block;
-    width: 11em;
-    text-align: right;
+.field label {
+	margin-bottom: 0.3em;
+	font-size: 0.9em;
+	font-weight: bold;
+	
 }
 
-input {
-    margin-left: 1em;
-    margin-right: 0.5em;
+.field input[type="text"],
+.field input[type="password"] {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
-span {
-    color: red;
+#login_button {
+	width: 100%
+	padding: 0.6em;
+	background-color: #2575fc;
+	color: white;
+	border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: bold;
 }
+
 ```
 
-**Checkpoint:** The form should now look laid out and styled — labels right-aligned, a blue border around the page, red asterisks.
+## Exercise 
+Take the login page we created above and improve its styles so that it looks professional and elegant. Can you make the login page look like below:
 
----
+<img src="./images/login_exercise.png" width="500">
 
-### 4. Selectors Deep Dive: Type, ID, and Class (15 min, hands-on)
+Feel free to improve it further.
 
-**Explain the anatomy of a style rule first:**
-
-```css
-selector {
-    property-name: property-value;
-}
-```
-
-| Part | Example | Meaning |
-| --- | --- | --- |
-| Selector | `h1` | What element(s) this rule targets |
-| Property declaration | `color: blue;` | One property name + value pair |
-| Property name | `color` | What aspect is being styled |
-| Property value | `blue` | The value applied |
-
-**Now demonstrate the three selector types side by side.** Have students add a second paragraph and a footer to their `index.html`, just below `</form>` and still inside `<main>` or after it:
-
-```html
-<p class="note">We never share your email address.</p>
-<footer>
-    <p id="copyright" class="note">&copy; 2026 Course Demo</p>
-</footer>
-```
-
-Then add these rules to `styles.css`, explaining each selector type as you type it:
-
-```css
-/* Type selector — targets every <p> element */
-p {
-    font-size: 90%;
-}
-
-/* Class selector — targets any element with class="note" */
-.note {
-    color: gray;
-    font-style: italic;
-}
-
-/* ID selector — targets the one element with id="copyright" */
-#copyright {
-    text-align: right;
-}
-```
-
-**Exercise (students work individually, 5 min):**
-
-1. Add a `class="highlight"` to the `<h1>`.
-2. Write a `.highlight` rule that changes its background color.
-3. Add a second `<p>` somewhere and give it `id="warning"`, then write an `#warning` rule that makes its text bold.
-4. Refresh the browser and confirm both changes appear.
-
-#### Theory: Specificity — Which Rule Wins?
-
-When multiple rules target the *same* element, CSS picks a winner using **specificity** — roughly, how "precise" the selector is:
-
-| Selector type | Specificity (low → high) |
-| --- | --- |
-| Type selector (`p`) | Lowest |
-| Class selector (`.note`) | Medium |
-| ID selector (`#copyright`) | Highest |
-
-So if `p { color: gray; }` and `.note { color: red; }` both apply to the same `<p class="note">`, the class rule wins because a class selector is more specific than a type selector. An ID selector beats both. This is *why* IDs are typically reserved for one-of-a-kind elements — using an ID selector for something that could apply to many elements makes later overrides harder.
-
-> **Exam-relevant rule of thumb:** specificity is about the *selector*, not the order the rules are written in — a more specific selector wins even if it's written first in the file. Order only acts as the tiebreaker when specificity is equal.
-
----
-
-### 5. Semantic HTML5 & Key Attributes (15 min)
-
-**Semantic elements — quick reference:**
-
-| Element | Purpose |
-| --- | --- |
-| `header` | Introductory content, typically at the top of a page or section |
-| `main` | The dominant content of the page (one per page) |
-| `section` | A thematic grouping of content |
-| `article` | Self-contained content (a blog post, a news story) |
-| `aside` | Content tangentially related to the main content |
-| `nav` | A block of navigation links |
-| `figure` | Self-contained media (image, diagram) with an optional caption |
-| `footer` | Footer content for a page or section |
-
-**Discussion:** Why use `<header>` instead of just `<div class="header">`? → Semantic meaning helps accessibility tools (screen readers) and makes code more self-documenting. `div` and `span` carry **no** meaning — they're generic containers, useful specifically *because* they're neutral (we'll lean on them heavily once we start using JavaScript to target elements).
-
-**Key attributes to know cold before we touch JavaScript:**
-
-| Attribute | Used for |
-| --- | --- |
-| `id` | A unique identifier for one element — used for CSS `#id` selectors and, soon, JavaScript targeting |
-| `class` | A reusable label shared by many elements — used for CSS `.class` selectors and grouping |
-| `name` | Identifies form data when submitted to a server |
-| `for` | On a `<label>`, links it to a form control's `id` (improves accessibility — clicking the label focuses the input) |
-| `title` | Adds a tooltip shown on hover |
-
-**Final wrap-up exercise (10 min, pairs):**
-
-Have students refactor their `index.html` to wrap the form in a `<header>` + `<main>` + `<footer>` structure instead of a flat `<main>`, and add a `title` attribute to the email input that says `"Enter a valid email address."` Confirm the tooltip appears on hover in the browser.
-
----
-
-## What to Bring to Week 2
-
-Students should leave Week 1 with:
-
-- A working `week01-email-list` folder containing a validated `index.html` and `styles.css`
-- Comfort opening DevTools' Network tab and reading a request/response
-- Comfort explaining the difference between type, id, and class selectors
-- A page they'll extend in Week 2 once we start adding real JavaScript behavior to it
-
-> **Instructor note:** Keep this exact `index.html`/`styles.css` pair — Week 2 (Getting Started with JS) will attach a `script.js` to this same file, so having a clean, working starting point matters.
-
----
-
-## Study Guide: Key Concepts for Quizzes/Exams
-
-Use this section to review — it summarizes the theory covered above without the hands-on steps.
-
-**Client-server model**
-- A *client* initiates requests; a *server* listens and responds. These are roles, not specific devices.
-- Network scope terms: LAN (local), WAN (wide-area), intranet (private/organizational), Internet (global, public), and the role of an ISP in connecting a client to it.
-
-**HTTP**
-- HTTP is a *protocol* — a message format both client and server agree to use — not a program.
-- A request has a method (`GET`, `POST`, `PUT`, `DELETE`) and a path; a response has a status code and usually a body.
-- Status codes are grouped by their first digit: 1xx informational, 2xx success, 3xx redirection, 4xx client error, 5xx server error.
-- Headers carry metadata (e.g., `Content-Type`) describing the message, separate from its actual content.
-
-**URLs**
-- A URL has up to six parts: protocol, host, port, path, query string, and fragment.
-- Omitted parts fall back to defaults (protocol defaults to `http://`/`https://`; missing path returns the server's default document).
-- The fragment (`#...`) never leaves the browser — it's not sent to the server.
-
-**Static vs. dynamic pages**
-- Static: the server returns a file unchanged — same request, same response, every time.
-- Dynamic: the server runs code (server-side processing), often involving an application server and database server, to build the HTML fresh per request — this full cycle is a round trip.
-
-**HTML**
-- HTML is a *markup* language (structure/meaning), not a programming language (no logic/computation).
-- Elements nest to form a tree, which the browser parses when rendering the page.
-- `<head>` holds metadata (not shown to the user); `<body>` holds what's displayed.
-
-**CSS**
-- CSS controls presentation, kept separate from HTML's structure/content.
-- Three ways to apply it: inline, embedded, external — external is standard practice.
-- "Cascading" refers to the defined order used to resolve conflicting rules.
-- Specificity (type < class < id) decides which rule wins when multiple selectors target the same element, regardless of the order they're written in.
-
-**Semantic HTML & key attributes**
-- Semantic elements (`header`, `main`, `nav`, `section`, `article`, `aside`, `figure`, `footer`) describe meaning; `div`/`span` are meaning-neutral containers.
-- `id` = unique identifier (one element); `class` = reusable label (many elements); `name` = identifies form data sent to the server; `for` = links a `<label>` to a form control; `title` = hover tooltip.
+## References
+- [W3Schools - HTML and CSS](https://www.w3schools.com/htmlcss/)
+- [Geeks for Geeks - HTML](https://www.geeksforgeeks.org/html/html-tutorial/)
+- [HTML](https://html.com/)
