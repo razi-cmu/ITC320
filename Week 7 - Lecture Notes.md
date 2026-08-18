@@ -1,6 +1,6 @@
-# Week 7 — Deployment to a Server
+# Week 7: Deployment to a Server
 
-## Why Deployment Matters
+## Why Deployment Matters?
 
 Every project built so far in this course has lived on one computer, opened directly from a local file or run through a local development setup. Deployment is the process of moving a finished project onto a server so that anyone with an internet connection and the right URL can visit it, not just the person who built it.
 
