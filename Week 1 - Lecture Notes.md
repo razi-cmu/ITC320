@@ -162,7 +162,7 @@ We can put a reference to a page using below:
 ```html
 <a href="https://www.cmich.edu">This is a link</a>
 ```
-The link's destination is specified in the href attribute. Attributes are used to provide additional information about HTML elements.
+The link's destination is specified in the href attribute. Attributes are used to provide additional information about HTML elements. Add `target="_blank"` to open in a new tab.
 
 #### HTML Images
 HTML images are defined with the <img> tag. The source file (src), alternative text (alt), width, and height are provided as attributes:
