@@ -413,7 +413,7 @@ Below is the usage of this class in the HTML document:
 			</div>
 		</form>
 	</div>
-	<footer>Copyright 2026. All rights reserved.</footer>
+	<footer class="margin">Copyright 2026. All rights reserved.</footer>
 </body>
 </html>
  ```
@@ -424,29 +424,29 @@ Here is the `styles.css`:
 body {
     background-color: #f0f2f5;
     text-align: center;
-	margin: 0;
+    margin: 0;
     padding: 3em 1em;
 }
 
 #login_card {
-	background-color: white;
-	width: 320px;
-	margin: 0 auto;
-	padding: 2em;
-	border: 1px solid #ccc;
-	border-radius: 8px;
+    background-color: white;
+    width: 320px;
+    margin: 0 auto;
+    padding: 2em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
 .field {
-	margin-bottom: 1em;
-	text-align: left;
+    margin-bottom: 1em;
+    text-align: left;
 }
 
 .field label {
-	margin-bottom: 0.3em;
-	font-size: 0.9em;
-	font-weight: bold;
-	
+    display: block;
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+    font-weight: bold;
 }
 
 .field input[type="text"],
@@ -460,14 +460,17 @@ body {
 }
 
 #login_button {
-	width: 100%;
-	padding: 0.6em;
-	background-color: #2575fc;
-	color: white;
-	border: none;
-    border-radius: 4px;
+    width: 100%;
+    padding: 0.6em;
+    background-color: #2575fc;
+    color: white;
+    border: none;
     font-size: 1em;
     font-weight: bold;
+}
+
+footer.margin {
+    margin: 2em 0;
 }
 
 ```
