@@ -347,6 +347,19 @@ for (let i = 1; i <= favoriteNumber; i++) {
 // Step 5: Show everything in one final message
 alert(`Thanks, ${userName}!\n\n${numberMessage}\n\nHere's your countdown:\n${countdownMessage}`);
 ```
+## Bonus:
+Extend your `welcome.js` program to make the experience more interactive.
+
+After the user enters their favorite number, add the following:
+
+- Ask the user for a second number between 1 and 10.
+- Use if/else statements to determine which of the two numbers is larger, or whether they are equal.
+- Use a loop to build a message containing only the even numbers between 1 and the larger number.
+- Create a final alert() that includes:
+  - The user's name
+  - Their favorite number
+  - Which number is larger (or that the numbers are equal)
+  - The list of even numbers
 
 ## References
 - Murach's JavaScript and jQuery (4th Edition)
