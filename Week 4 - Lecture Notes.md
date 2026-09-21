@@ -12,6 +12,27 @@ The key idea is that HTML defines what the page looks like when it first loads, 
 
 ## Selecting Elements
 
+Assuming we have the following HTML file (`index.html`)
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM Elements</title>
+    </head>
+    <body>
+        <h1 id="main-heading">Document Object Model</h1>
+        <p id="para1">Working with DOM</p>
+        <img id="cmU_logo" src="https://www.cmich.edu/images/default-source/presidents-division/university-communications/new-brand-images/actionc/actionc_thumb_244x244px3e6a6273-3595-46d7-b181-2c779d67f0bd.jpg?sfvrsn=e96af5dc_6" alt="CMU Logo">
+        <ul class="list-item">
+            <li>Apple</li>
+            <li>Banana</li>
+            <li>Orange</li>
+        </ul>
+        <script src="script.js"></script>
+    </body>
+</html>
+```
+
 Before JavaScript can do anything to an element, it has to find it first. The `document` object is the entry point into the DOM, and it provides several methods for selecting elements.
 
 `getElementById()` selects a single element by its `id` attribute. Since ids are supposed to be unique on a page, this always returns one element or `null` if nothing matches.
@@ -33,27 +54,6 @@ const allItems = document.querySelectorAll(".list-item");
 ```
 
 ## Reading and Writing Content
-
-Assuming we have the following HTML file (`index.html`)
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>DOM Elements</title>
-    </head>
-    <body>
-        <h1 id="main-heading">Document Object Model</h1>
-        <p id="para1">Working with DOM</p>
-        <img id="cmU_logo" src="https://www.cmich.edu/images/default-source/presidents-division/university-communications/new-brand-images/actionc/actionc_thumb_244x244px3e6a6273-3595-46d7-b181-2c779d67f0bd.jpg?sfvrsn=e96af5dc_6" alt="CMU Logo">
-        <ul class="list-item">
-            <li>Apple</li>
-            <li>Banana</li>
-            <li>Orange</li>
-        </ul>
-        <script src="script.js"></script>
-    </body>
-</html>
-```
 
 Once an element is selected, its content can be read or replaced.
 
