@@ -34,6 +34,27 @@ const allItems = document.querySelectorAll(".list-item");
 
 ## Reading and Writing Content
 
+Assuming we have the following HTML file (`index.html`)
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM Elements</title>
+    </head>
+    <body>
+        <h1 id="main-heading">Document Object Model</h1>
+        <p id="para1">Working with DOM</p>
+        <img id="cmU_logo" src="https://www.cmich.edu/images/default-source/presidents-division/university-communications/new-brand-images/actionc/actionc_thumb_244x244px3e6a6273-3595-46d7-b181-2c779d67f0bd.jpg?sfvrsn=e96af5dc_6" alt="CMU Logo">
+        <ul class="list-item">
+            <li>Apple</li>
+            <li>Banana</li>
+            <li>Orange</li>
+        </ul>
+        <script src="script.js"></script>
+    </body>
+</html>
+```
+
 Once an element is selected, its content can be read or replaced.
 
 `textContent` gets or sets the plain text inside an element.
