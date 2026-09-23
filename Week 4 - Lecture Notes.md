@@ -295,6 +295,23 @@ function toggle_highlight() {
 btnClick.addEventListener("click", event => {
     toggle_highlight();
 });
+```
+The script above can be simplified using `toggle` as below:
+```js
+const heading = document.getElementById("main-heading");
+const para1 = document.getElementById("para1");
+const btnClick = document.getElementById("btn-click");
+
+let isHighlighted = false;
+
+function toggle_highlight() {
+    para1.classList.toggle("highlight");
+}
+
+
+btnClick.addEventListener("click", event => {
+    toggle_highlight();
+});
 
 
 ```
