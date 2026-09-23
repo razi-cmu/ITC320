@@ -373,12 +373,6 @@ item.appendChild(li2);
 document.body.append(item);
 ```
 
-Elements can be removed the same way they were added.
-
-```js
-newItem.remove();
-```
-
 ## Exercise: Coffee Order Tracker, Revisited
 
 You are given the HTML and CSS for a Corner Cafe ordering page. Write the JavaScript to make the page functional. Script should do the following:
