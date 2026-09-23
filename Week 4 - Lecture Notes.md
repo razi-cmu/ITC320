@@ -361,12 +361,16 @@ console.log(item.closest(".container"));
 New elements can also be built entirely in JavaScript and inserted into the page.
 
 ```js
-const item = document.querySelector("#task-list");
+const item = document.createElement("ul");
+const li1 = document.createElement("li");
+li1.textContent = "Apple";
+const li2 = document.createElement("li");
+li2.textContent = "Banana";
 
-const newItem = document.createElement("li");
-newItem.textContent = "Practice";
+item.appendChild(li1);
+item.appendChild(li2);
 
-item.appendChild(newItem);
+document.body.append(item);
 ```
 
 Elements can be removed the same way they were added.
