@@ -249,6 +249,56 @@ button.addEventListener("click", doSomething);
 
 An element can also listen for more than one type of event, and multiple listeners can be attached to the same event without overwriting each other, which is not possible with inline attributes or the `.onclick` property.
 
+Let's redo our example from the previous lecture, but using event listeners (keeping the HTML simple this time):
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DOM and Events</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1 id="main-heading">DOM and Events</h1>
+        <p id="para1">Central Michigan University</p>
+        <button id="btn-click">Click Me</button>
+        <script src="script.js"></script>
+    </body>
+</html>
+```
+Here are the styles in `style.css`
+```css
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
+}
+```
+Finally, the JS as `script.js`
+```js
+const heading = document.getElementById("main-heading");
+const para1 = document.getElementById("para1");
+const btnClick = document.getElementById("btn-click");
+
+let isHighlighted = false;
+
+function toggle_highlight() {
+    if (isHighlighted === false) {
+        para1.classList.add("highlight");
+        isHighlighted = true;
+    }
+    else {
+        para1.classList.remove("highlight");
+        isHighlighted = false;
+    }
+}
+
+
+btnClick.addEventListener("click", event => {
+    toggle_highlight();
+});
+
+
+```
+
 ## The Event Object
 
 Every event listener function automatically receives an event object as its first parameter. This object holds information about what happened.
