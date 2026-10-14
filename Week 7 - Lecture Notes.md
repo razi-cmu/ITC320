@@ -719,7 +719,7 @@ With the site fully working locally, the next step is publishing it, using the G
 5. Set the branch to main and the folder to / (root), then select Save.
 6. Wait a minute or two. GitHub Pages needs a short amount of time to build and publish the site.
 7. Refresh the Pages settings screen. 
-8. A green banner will show the live URL, typically in the form<img width="2191" height="569" alt="image" src="https://github.com/user-attachments/assets/7f1b9a35-0874-4069-b7fe-8e628f5d9cd6" />
+8. A green banner will show the live URL, typically in the form.
 
 ## References
 
