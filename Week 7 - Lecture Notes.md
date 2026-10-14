@@ -587,160 +587,125 @@ Build `script.js`, to incorporate all the features based on the HTML.
 ### Solution
 
 ```javascript
+
 const slideImage = document.getElementById("slide-image");
 const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
 const playPauseBtn = document.getElementById("play-pause-btn");
-const slideshow = document.getElementById("slideshow");
 
 const slidePaths = [
-  "images/slide1.jpg",
-  "images/slide2.jpg",
-  "images/slide3.jpg",
+    "images/slide1.jpg",
+    "images/slide2.jpg",
+    "images/slide3.jpg",
 ];
 
-const slideAlts = [
-  "Featured front-end development work",
-  "Responsive web development project displayed on a laptop",
-  "Modern front-end development workspace",
+const slideAlt = [
+    "Featured front-end development work",
+    "Responsive web development project",
+    "Modern front-end development project"
 ];
 
 let currentSlide = 0;
 let isPlaying = true;
 let slideTimer = null;
 
-/* --------------------------------
-   Image preloading
--------------------------------- */
-
-const preloadedImages = [];
-
-slidePaths.forEach(function (path) {
-  const img = new Image();
-  img.src = path;
-  preloadedImages.push(img);
-});
-
-/* --------------------------------
-   Slideshow
--------------------------------- */
-
 function showSlide(index) {
-  if (!slideImage) {
-    return;
-  }
+    if (!slideImage || slidePaths.length === 0) {
+        return;
+    }
 
-  currentSlide = index;
-  slideImage.src = slidePaths[currentSlide];
-  slideImage.alt = slideAlts[currentSlide];
+    currentSlide = index;
+    slideImage.src = slidePaths[currentSlide];
+    slideImage.alt = slideAlt[currentSlide];
 }
 
 function nextSlide() {
-  showSlide((currentSlide + 1) % slidePaths.length);
+    showSlide((currentSlide + 1) % slidePaths.length);
 }
 
 function prevSlide() {
-  showSlide((currentSlide - 1 + slidePaths.length) % slidePaths.length);
+    showSlide(
+        (currentSlide - 1 + slidePaths.length) % slidePaths.length
+    );
 }
 
-function startSlideshow() {
-  stopSlideshow();
+function startSlideShow() {
+    stopSlideShow();
 
-  if (!isPlaying || slidePaths.length <= 1) {
-    return;
-  }
+    if (!isPlaying || slidePaths.length <= 1) {
+        return;
+    }
 
-  slideTimer = setInterval(nextSlide, 4000);
+    slideTimer = setInterval(nextSlide, 4000);
 }
 
-function stopSlideshow() {
-  if (slideTimer !== null) {
-    clearInterval(slideTimer);
-    slideTimer = null;
-  }
+function stopSlideShow() {
+    if (slideTimer !== null) {
+        clearInterval(slideTimer);
+        slideTimer = null;
+    }
 }
 
 function updatePlayPauseButton() {
-  if (!playPauseBtn) {
-    return;
-  }
+    if (!playPauseBtn) {
+        return;
+    }
 
-  playPauseBtn.textContent = isPlaying ? "Pause" : "Play";
-  playPauseBtn.setAttribute(
-    "aria-label",
-    isPlaying ? "Pause slideshow" : "Play slideshow",
-  );
-  playPauseBtn.setAttribute("aria-pressed", String(!isPlaying));
+    playPauseBtn.textContent = isPlaying ? "Pause" : "Play";
 }
 
-if (slideImage && prevBtn && nextBtn && playPauseBtn && slideshow) {
-  nextBtn.addEventListener("click", function () {
-    nextSlide();
+// Initialize the slideshow
+if (slideImage && slidePaths.length > 0) {
+    showSlide(currentSlide);
+}
 
-    if (isPlaying) {
-      startSlideshow();
-    }
-  });
+updatePlayPauseButton();
+startSlideShow();
 
-  prevBtn.addEventListener("click", function () {
-    prevSlide();
+// Previous and next buttons
+if (nextBtn) {
+    nextBtn.addEventListener("click", nextSlide);
+}
 
-    if (isPlaying) {
-      startSlideshow();
-    }
-  });
+if (prevBtn) {
+    prevBtn.addEventListener("click", prevSlide);
+}
 
-  playPauseBtn.addEventListener("click", function () {
-    isPlaying = !isPlaying;
+// Play/pause button
+if (playPauseBtn) {
+    playPauseBtn.addEventListener("click", () => {
+        isPlaying = !isPlaying;
 
-    updatePlayPauseButton();
+        updatePlayPauseButton();
 
-    if (isPlaying) {
-      startSlideshow();
-    } else {
-      stopSlideshow();
-    }
-  });
+        if (isPlaying) {
+            startSlideShow();
+        } else {
+            stopSlideShow();
+        }
+    });
+}
 
-  /* --------------------------------
-   Project image hover previews
--------------------------------- */
+// Project image hover effects
+const projectImages = document.querySelectorAll(".project-image");
 
-  const projectImages = document.querySelectorAll(".project-image");
-
-  projectImages.forEach(function (img) {
+projectImages.forEach(function (img) {
     const originalSrc = img.src;
     const hoverSrc = img.dataset.hover;
 
-    /*
-    Preload the hover image so switching doesn't cause
-    a visible loading delay.
-  */
-    if (hoverSrc) {
-      const hoverImage = new Image();
-      hoverImage.src = hoverSrc;
+    if (!hoverSrc) {
+        return;
     }
 
-    img.addEventListener("mouseenter", function () {
-      if (hoverSrc) {
+    img.addEventListener("mouseenter", () => {
         img.src = hoverSrc;
-      }
     });
 
-    img.addEventListener("mouseleave", function () {
-      img.src = originalSrc;
-    });
-
-    /*
-    If an image fails to load, return to the original image.
-  */
-    img.addEventListener("error", function () {
-      if (img.src !== originalSrc) {
+    img.addEventListener("mouseleave", () => {
         img.src = originalSrc;
-      }
     });
-  });
-}
+});
+
 ```
 
 ### Part 2: Deploying the Site
