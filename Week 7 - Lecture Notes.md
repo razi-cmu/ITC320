@@ -713,8 +713,13 @@ projectImages.forEach(function (img) {
 With the site fully working locally, the next step is publishing it, using the GitHub Pages workflow covered earlier in this class:
 
 1. Create a new public GitHub repository and upload `index.html`, `styles.css`, `script.js`, and the `images` folder, keeping the folder structure intact.
-2. Turn on GitHub Pages for the repository and open the live URL.
-
+2. Open the repository on GitHub and select Settings.
+3. In the left sidebar, select Pages.
+4. Under Build and deployment, set the Source to Deploy from a branch.
+5. Set the branch to main and the folder to / (root), then select Save.
+6. Wait a minute or two. GitHub Pages needs a short amount of time to build and publish the site.
+7. Refresh the Pages settings screen. 
+8. A green banner will show the live URL, typically in the form<img width="2191" height="569" alt="image" src="https://github.com/user-attachments/assets/7f1b9a35-0874-4069-b7fe-8e628f5d9cd6" />
 
 ## References
 
