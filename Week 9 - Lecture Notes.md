@@ -1467,7 +1467,8 @@ When nothing has been saved yet, `getItem()` returns `null`, which is not `"dark
 
 ## References
 
-- Delamater, M., Murach's JavaScript and jQuery, 4th Edition, Mike Murach & Associates Inc., 2020. Chapter on browser objects and web storage.
+- Delamater, M., Murach's JavaScript and jQuery, 4th Edition, Mike Murach & Associates Inc., 2020.
+  - Chapter 14 (How to work with browser objects, cookies, and web storage).
 - W3Schools, JavaScript Window: https://www.w3schools.com/js/js_window.asp
 - W3Schools, JavaScript Window Location: https://www.w3schools.com/js/js_window_location.asp
 - W3Schools, JavaScript Window History: https://www.w3schools.com/js/js_window_history.asp
